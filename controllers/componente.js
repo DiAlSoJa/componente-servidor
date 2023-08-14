@@ -4,7 +4,7 @@ const Componente = require("../models/componente");
 // const Categoria = require("../models/categoria");
 
 const crearComponente = async(req,res=response)=>{
-    
+    console.log(req.body)
     
     if(req.file){
         const {path,size} = req.file;
@@ -21,8 +21,10 @@ const crearComponente = async(req,res=response)=>{
             
             const cloudinary_id=public_id;
             const destination=secure_url;
+            const {html,style,script} = JSON.parse(codigo);
 
-            const componente = new Componente({titulo,categorias,description,codigo,cloudinary_id,destination});
+            const componente = new Componente({titulo,categorias,description,codigo:{html,style,script},cloudinary_id,destination});
+            console.log(componente)
             await componente.save();
 
             
@@ -62,7 +64,7 @@ const getComponentes = async(req,res=response) =>{
 const getComponente = async(req,res)=>{
     const {id} = req.params;
 
-    const componente = await Componente.findById(id);
+    const componente = await Componente.findById(id).populate("categorias","nombre");
     res.json(componente);
 }
 
