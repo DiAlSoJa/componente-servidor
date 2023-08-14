@@ -40,6 +40,7 @@ router.put("/:id",[
     check("correo","El correo es obligatorio").isEmail(),
     check('id', 'No es un ID válido').isMongoId(),
     check('id').custom( existeAdminPorId ),
+    validarJwt,
     validarCampos
 ],actualizarAdmin);
 

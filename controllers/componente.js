@@ -70,11 +70,12 @@ const getComponente = async(req,res)=>{
 }
 
 const actualizarComponente = async(req,res)=>{
+    
     const {id} = req.params;
     const {titulo,categorias,description} = req.body;
 
     const componente= await Componente.findOne({_id:id});
-
+    
     if(req.file){   
         const {path,size} = req.file;
         if(size>=10485760){
@@ -100,16 +101,23 @@ const actualizarComponente = async(req,res)=>{
         }
         
     }
-
+   
     try {
-        if(titulo)
-        componente.titulo=titulo;
+        if(titulo){
 
-        if(categorias.length>0)
-        componente.categorias=categorias;
+            componente.titulo=titulo;
+        }
 
-        if(description)
-        componente.description=description;
+        if(categorias){
+
+
+            componente.categorias=categorias;
+        }
+
+        if(description){
+
+            componente.description=description;
+        }
 
         await componente.save();
 
@@ -117,7 +125,8 @@ const actualizarComponente = async(req,res)=>{
             componente
         })
     } catch (error) {
-        res.status(400).json(error);
+        console.log(error)
+        res.status(400).json({msg:"fallo al actualizar campos"});
     }
 
 }
