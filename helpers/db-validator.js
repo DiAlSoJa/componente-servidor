@@ -10,10 +10,11 @@ const existeCategoriaPorId = async(id)=>{
     if(!existeCategoria) throw new Error(`La categoria id=${existeCategoria}`);
 }
 
-// const existeCategoriaPorCate = async(cate="")=>{
-//     const existeCategoria = await Categoria.find({nombre: cate.toUpperCase()});
-//     if(existeCategoria.length===0)throw new Error(`La categoria=${cate} no existe pendejo`);
-// }
+const existeCategoriaPorCate = async(cate="")=>{
+
+    const existeCategoria = await Categoria.findOne({nombre: cate.toUpperCase()});
+    if(existeCategoria.length===0)throw new Error(`La categoria=${cate} no existe pendejo`);
+}
 
 
 
@@ -38,5 +39,6 @@ const existeComponentePorId = async(id)=>{
 module.exports = {
     existeCategoriaPorId,
     existeAdminPorId,
-    existeComponentePorId
+    existeComponentePorId,
+    existeCategoriaPorCate
 }

@@ -1,7 +1,7 @@
 const {response} = require("express");
 const cloudinary = require("../config/cloudinary");
 const Componente = require("../models/componente");
-// const Categoria = require("../models/categoria");
+const Categoria = require("../models/categoria");
 
 const crearComponente = async(req,res=response)=>{
 
@@ -152,17 +152,17 @@ const eliminarComponente = async(req,res)=>{
     }
 }
 
-// const getComponentesPorCategoria = async(req,res=response) =>{
-//     const cate = req.params.cate.toUpperCase();
-//     const categorias = await Categoria.find({nombre: cate});
-//     const categoria = categorias[0]._id.toString();
-//     const componentes = await Componente.find({categorias: categoria}).populate("categorias","nombre");
+const getComponentesPorCategoria = async(req,res=response) =>{
+    const cate = req.params.cate.toUpperCase();
+    const categorias = await Categoria.find({nombre: cate});
+    const categoria = categorias[0]._id.toString();
+    const componentes = await Componente.find({categorias: categoria}).populate("categorias","nombre");
     
     
-//     res.json({
-//         componentes
-//     })
-// }
+    res.json({
+        componentes
+    })
+}
 
 //aqui tengo que actualizar para que actualice el la imagen en cloudinary
 
@@ -170,7 +170,7 @@ const eliminarComponente = async(req,res)=>{
 module.exports={
     crearComponente,
     getComponentes,
-    // getComponentesPorCategoria,
+    getComponentesPorCategoria,
     actualizarComponente,
     eliminarComponente,
     getComponente

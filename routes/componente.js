@@ -7,17 +7,18 @@ const {
     getComponentes,
     actualizarComponente,
     eliminarComponente,
-    getComponente} = require("../controllers/componente");
+    getComponente
+    ,getComponentesPorCategoria} = require("../controllers/componente");
 
 const { validarCampos} = require("../helpers/validar-campos");
 const { validarJwt} = require("../helpers/validar-jwt");
 
 const {existeCategoriaPorId,
-    existeComponentePorId} = require("../helpers/db-validator");
+    existeComponentePorId,
+    existeCategoriaPorCate} = require("../helpers/db-validator");
 
 const {validarImagen} =require("../helpers/validar-imagen");
 // crear componentes
-const {bodyLoggerMiddleware} =require("../helpers/form-date-midleware");
 
 router.post("/",uploadFiles.single("imagenxd"),[
     validarImagen,
@@ -38,10 +39,10 @@ router.get("/:id",[
     validarCampos
 ],getComponente);
 
-// router.get("/c/:cate",[
-//     check("cate","no existe paps").custom(existeCategoriaPorCate),
-//     validarCampos
-// ],getComponentesPorCategoria);
+router.get("/c/:cate",[
+    check("cate","no existe paps").custom(existeCategoriaPorCate),
+    validarCampos
+],getComponentesPorCategoria);
 
 
 
