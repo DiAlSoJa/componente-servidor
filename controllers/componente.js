@@ -25,7 +25,7 @@ const crearComponente = async(req,res=response)=>{
             const htmlFinal= html.replaceAll("<", "&lt;").replaceAll(">", "&gt;");
 
             const componente = new Componente({titulo,categorias,description,codigo:{html:htmlFinal,style,script},cloudinary_id,destination});
-            console.log(componente)
+
             await componente.save();
 
             
